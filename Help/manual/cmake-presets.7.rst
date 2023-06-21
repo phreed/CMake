@@ -123,8 +123,12 @@ by these files can also include other files. If ``CMakePresets.json`` and
 implicitly includes ``CMakePresets.json``, even with no ``include`` field,
 in all versions of the format.
 
-If a preset file contains presets that inherit from presets in another file,
-the file must include the other file either directly or indirectly.
+If a preset file, ``b.json``, contains presets that ``inherits`` from
+(also ``configurePreset``, ``workflowPresets:steps:name``, …) presets in
+another file, ``a.json``; then, the file ``a.json``, must either directly or
+indirectly include the file ``b.json``.  (``indirectly`` implying that
+there are intermediate inclusions, e.g., ``a.json`` includes ``c.json``
+in turn includes ``b.json``.)
 Include cycles are not allowed among files. If ``a.json`` includes
 ``b.json``, ``b.json`` cannot include ``a.json``. However, a file may be
 included multiple times from the same file or from different files.
