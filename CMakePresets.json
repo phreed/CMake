@@ -1,0 +1,101 @@
+{
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 26,
+    "patch": 4
+  },
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "cc-ninja",
+      "displayName": "Ninja Debug",
+      "generator": "Ninja",
+      "binaryDir": "build/cmake-build-debug-gcc",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      },
+      "debug": {
+        "output": true
+      },
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "MinGW"
+        }
+      }
+    },
+    {
+      "name": "cc-vs",
+      "displayName": "Visual Studio Debug",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "build/vs",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "warnings": {
+        "dev": true,
+        "deprecated": true
+      },
+      "debug": {
+        "output": true
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ninja-base",
+      "hidden": true,
+      "configurePreset": "cc-ninja",
+      "configuration": "Debug"
+    },
+    {
+      "name": "cb-ninja-cmake",
+      "inherits": "ninja-base",
+      "inheritConfigureEnvironment": false,
+      "targets": [  ]
+    },
+    {
+      "name": "vs-base",
+      "hidden": true,
+      "configurePreset": "cc-vs",
+      "configuration": "Debug"
+    },
+    {
+      "name": "cb-vs-cmake",
+      "inherits": "vs-base",
+      "inheritConfigureEnvironment": false,
+      "targets": [  ]
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "cw-ninja-cmake",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "cc-ninja"
+        },
+        {
+          "type": "build",
+          "name": "cb-ninja-cmake"
+        }
+      ]
+    },
+    {
+      "name": "cw-vs-cmake",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "cc-vs"
+        },
+        {
+          "type": "build",
+          "name": "cb-vs-cmake"
+        }
+      ]
+    }
+  ]
+}
