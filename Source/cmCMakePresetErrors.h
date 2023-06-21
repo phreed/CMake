@@ -90,8 +90,8 @@ const auto INHERITED_PRESET_UNREACHABLE_FROM_FILE =
 };
 const auto CONFIGURE_PRESET_UNREACHABLE_FROM_FILE =
   [](const std::string& presetName, cmJSONState* state) -> void {
-  state->AddError(cmStrCat("Configure preset \"", presetName,
-                           "\" is unreachable from preset's file"));
+  state->AddError(cmStrCat("Configure preset \"", state->key(),
+                           "\" is unreachable from preset \"", presetName, "\""));
 };
 const auto INVALID_MACRO_EXPANSION = [](const std::string& presetName,
                                         cmJSONState* state) -> void {

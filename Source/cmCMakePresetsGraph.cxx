@@ -1094,8 +1094,11 @@ bool cmCMakePresetsGraph::ReadProjectPresetsInternal(bool allowNoFiles)
                                                       &this->parseState);
         return false;
       }
-      if (!it.second.Unexpanded.OriginFile->ReachableFiles.count(
-            configurePreset->second.Unexpanded.OriginFile)) {
+      auto foo = it.second.Unexpanded.OriginFile;
+      auto bar = configurePreset->second.Unexpanded.OriginFile;
+      auto counter1 = foo->ReachableFiles.count(bar);
+      auto counter2 = bar->ReachableFiles.count(foo);
+      if (!counter2) {
         cmCMakePresetErrors::CONFIGURE_PRESET_UNREACHABLE_FROM_FILE(
           it.first, &this->parseState);
         return false;
